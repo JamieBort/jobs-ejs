@@ -8,11 +8,12 @@ Wednesday, 11 February 2026
 
 1. (Briefly) Go over this agenda.
 
-2. Any Questions - Interrupt me at any time for questions or comments.
+2. "Sign in" by posting _anything_ in the (Zoom) group chat.
 
-3. Explain the [Resources](../group-sessions-files/20260211-lesson12-notes.md/#references)
-   (moved to [20260211-lesson12-notes](../group-sessions-files/20260211-lesson12-notes.md) file)
+3. Any Questions - Interrupt me at any time for questions or comments.
 
-4. I will go over the new code for this week.
+4. [Resources](../group-sessions-files/20260211-lesson12-notes.md/#references) for this lesson are listed in the [20260211-lesson12-notes](../group-sessions-files/20260211-lesson12-notes.md) file.
+
+5. I will go over the new code for this week.
 
    The associated notes are found in this [20260211-lesson12-notes](../group-sessions-files/20260211-lesson12-notes.md) file.

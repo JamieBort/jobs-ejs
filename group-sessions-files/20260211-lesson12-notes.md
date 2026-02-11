@@ -28,7 +28,7 @@ Back to [Table of Contents](#table-of-contents) above.
 
 NOTE 1:
 
-    I've renamed the following files and strings for clarity - the same string was used in multiple locations for different purposes.
+    I've renamed the following values for clarity - the same value was used in multiple locations but for different purposes.
 
     | type      | location                | original value         | current value              |
     | --------- | ----------------------- | ---------------------- | -------------------------- |
