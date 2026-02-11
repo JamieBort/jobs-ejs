@@ -2,25 +2,21 @@
 
 ## Table of Contents
 
-<!-- TODO: Reference the Flash section(s) here in the appropriate areas of the ./app.js file -->
-
-<!-- TODO: Reference the session/storage section(s) here in the appropriate areas of the ./app.js file -->
-
-<!-- TODO: Reference the EJS/template section(s) here in the appropriate areas of the ./app.js file -->
-
 1. [Points to highlight](#points-to-highlight)
 
 2. [Project Dependencies](#project-dependencies)
 
-3. [Templating - what it is and how it works](#templating---what-it-is-and-how-it-works)
+3. [(EJS) Templating - what it is and how it works](#ejs-templating---what-it-is-and-how-it-works)
 
 4. [Sessions and Storage](#sessions-and-storage)
 
-5. [Flash](#flash---temp-title)
+5. [Flash](#flash)
 
-6. [Diagram Session + Flash + MongoDB Interaction in Express](#diagram-session--flash--mongodb-interaction-in-express)
+6. [Redirect](#redirect)
 
-7. [References](#references)
+7. [Diagram Session + Flash + MongoDB Interaction in Express](#diagram-session--flash--mongodb-interaction-in-express)
+
+8. [References](#references)
 
 <p align="center">
 ************************
@@ -38,6 +34,7 @@ NOTE 1:
     | --------- | ----------------------- | ---------------------- | -------------------------- |
     | file name | jobs-ejs root directory | ./views/secretWord.ejs | ./views/secretWordView.ejs |
     | string    | ./app.js                | secretWord             | secretWordEndPoint         |
+    | variable  | ./app.js                | session                | sessionStore               |
 
 NOTE 2:
 
@@ -52,8 +49,6 @@ NOTE 2:
 <p align="center">
 ************************
 </p>
-
-<!-- TODO: Project Dependencies -->
 
 ## Project Dependencies
 
@@ -185,9 +180,7 @@ These packages are **only used during development** and are not required in prod
 ************************
 </p>
 
-<!-- TODO: Templating - what it is and how it works -->
-
-## Templating - what it is and how it works
+## (EJS) Templating - what it is and how it works
 
 Back to [Table of Contents](#table-of-contents) above.
 
@@ -280,8 +273,6 @@ That’s the minimal list.
 <p align="center">
 ************************
 </p>
-
-<!-- TODO: Sessions and Storage -->
 
 ## Sessions and Storage
 
@@ -426,9 +417,7 @@ Everything else (how cookies work, how `req.session` behaves) is conceptually th
 ************************
 </p>
 
-<!-- TODO: Flash - temp title -->
-
-## Flash - temp title
+## Flash
 
 Back to [Table of Contents](#table-of-contents) above.
 
@@ -563,7 +552,84 @@ It gives you temporary, per-user messaging that survives redirects without pollu
 ************************
 </p>
 
-<!-- TODO: Diagram Session + Flash + MongoDB Interaction in Express -->
+## Redirect
+
+Back to [Table of Contents](#table-of-contents) above.
+
+"Redirect" is mentioned in the [Flash](#flash) section above. Also, notice that this `res.redirect("/secretWordEndPoint");` line of code is in app.js file.
+
+### Without Redirect
+
+If you did this:
+
+```js
+res.render("secretWordView");
+```
+
+after a POST, then:
+
+- User submits form ✅
+- Page renders ✅
+- User hits refresh ❗
+- Browser warns: “Resubmit form?”
+- If they confirm → POST runs again
+
+That means:
+
+- The form resubmits
+- The data changes again
+- Flash messages repeat
+- Side effects can duplicate
+
+That’s bad UX and potentially dangerous.
+
+---
+
+### With Redirect (PRG)
+
+Flow becomes:
+
+```
+POST  →  Redirect  →  GET
+```
+
+Now:
+
+- User submits form ✅
+- Server processes it ✅
+- Redirect happens ✅
+- Final page is a GET ✅
+- User refreshes page → only GET runs
+
+No duplicate form submission.
+
+---
+
+### Why Flash Needs Redirect
+
+Flash exists **because of redirects**.
+
+If we didn’t redirect:
+
+- We could just render the page and pass a message directly.
+
+But since redirect creates a brand-new request:
+
+- Normal variables disappear.
+- We need somewhere to temporarily store the message.
+- That place is the **session**.
+- Flash writes to session.
+- Next request reads it.
+- Then deletes it.
+
+So:
+
+> Redirect creates a second request.
+> Flash allows data to survive that one extra request.
+
+<p align="center">
+************************
+</p>
 
 ## Diagram Session + Flash + MongoDB Interaction in Express
 
@@ -675,8 +741,6 @@ Important:
 <p align="center">
 ************************
 </p>
-
-<!-- TODO: References -->
 
 ## References
 

@@ -6,9 +6,9 @@ require("express-async-errors"); // Modify/extend existing code at runtime witho
 
 const express = require("express"); // Import Express framework
 
-const session = require("express-session"); // *** NEW CODE*** Middleware for handling user sessions (cookies + server-side storage)
+const sessionStore = require("express-session"); // *** NEW CODE*** Middleware for handling user sessions (cookies + server-side storage)
 
-const MongoDBStore = require("connect-mongodb-session")(session); // Creates a MongoDB-backed session store using express-session
+const MongoDBStore = require("connect-mongodb-session")(sessionStore); // *** NEW CODE*** Creates a MongoDB-backed session store using express-session
 
 // Access environment variables
 const url = process.env.MONGO_URI; // MongoDB connection string from .env
@@ -19,7 +19,6 @@ const app = express(); // Creates the Express application instance
 // Middleware
 app.use(require("body-parser").urlencoded({ extended: true })); // Parses application/x-www-form-urlencoded form data into req.body
 
-// TODO: TEMPLATE REFERENCE
 app.set("view engine", "ejs"); // *** NEW CODE*** Tells Express to use EJS as the template engine. See my notes.
 
 // *** NEW CODE*** UPDATE session v.1 - code updated per lesson instructions
@@ -51,13 +50,13 @@ if (app.get("env") === "production") {
 	sessionParms.cookie.secure = true; // Serve secure cookies. But only send cookies over HTTPS in production
 }
 
-app.use(session(sessionParms)); // Registers session middleware with the configured options.
+app.use(sessionStore(sessionParms)); // Registers session middleware with the configured options.
 
 app.use(require("connect-flash")()); // *** NEW CODE*** Enables flash messages stored in the session (temporary messages)
 
 // ORIGINAL session v.0 - code added per lesson instructions
 // app.use(
-// 	session({
+// 	sessionStore({
 // 		secret: process.env.SESSION_SECRET,
 // 		resave: false,
 // 		saveUninitialized: true,
@@ -73,7 +72,7 @@ app.get("/secretWordEndPoint", (req, res) => {
 		// Initialize the secret word in the session
 		req.session.secretWord = "syzygy";
 	}
-	// TODO: TEMPLATE REFERENCE
+
 	res.locals.info = req.flash("info"); // Makes flash messages available to the EJS template
 	res.locals.errors = req.flash("error"); // Makes flash messages available to the EJS template
 	res.render("secretWordView", { secretWord: req.session.secretWord }); // Renders the page with the secret word from the session
