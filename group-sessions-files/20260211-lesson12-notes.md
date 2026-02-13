@@ -18,9 +18,7 @@
 
 8. [References](#references)
 
-<p align="center">
-************************
-</p>
+<p align="center">************************</p>
 
 ## Points to highlight
 
@@ -46,9 +44,7 @@ NOTE 2:
 
     Likewise, while the "Jobs API - part 1" lesson uses client-side rendering, the "express-session" dependency could be used in place of JWT.
 
-<p align="center">
-************************
-</p>
+<p align="center">************************</p>
 
 ## Project Dependencies
 
@@ -176,9 +172,7 @@ These packages are **only used during development** and are not required in prod
 - **Sessions** are stored in MongoDB for production safety
 - **Security middleware** is included to reduce common web vulnerabilities
 
-<p align="center">
-************************
-</p>
+<p align="center">************************</p>
 
 ## (EJS) Templating - what it is and how it works
 
@@ -270,9 +264,7 @@ That’s the minimal list.
 
 - Template files found in the [./views/](../views/) directory.
 
-<p align="center">
-************************
-</p>
+<p align="center">************************</p>
 
 ## Sessions and Storage
 
@@ -413,9 +405,7 @@ In-Memory Session Store (previous lesson) used the **default in-memory store**.
 
 Everything else (how cookies work, how `req.session` behaves) is conceptually the same.
 
-<p align="center">
-************************
-</p>
+<p align="center">************************</p>
 
 ## Flash
 
@@ -548,9 +538,7 @@ It gives you temporary, per-user messaging that survives redirects without pollu
 - Messages disappear after being read.
 - Flash is ideal for user feedback after form submissions.
 
-<p align="center">
-************************
-</p>
+<p align="center">************************</p>
 
 ## Redirect
 
@@ -627,9 +615,7 @@ So:
 > Redirect creates a second request.
 > Flash allows data to survive that one extra request.
 
-<p align="center">
-************************
-</p>
+<p align="center">************************</p>
 
 ## Diagram Session + Flash + MongoDB Interaction in Express
 
@@ -738,9 +724,7 @@ Important:
 
 > Flash is temporary data stored inside the session, persisted in MongoDB, and automatically deleted after one read.
 
-<p align="center">
-************************
-</p>
+<p align="center">************************</p>
 
 ## References
 

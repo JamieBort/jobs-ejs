@@ -54,14 +54,16 @@ app.use(sessionStore(sessionParms)); // Registers session middleware with the co
 
 app.use(require("connect-flash")()); // *** NEW CODE*** Enables flash messages stored in the session (temporary messages)
 
-// ORIGINAL session v.0 - code added per lesson instructions
-// app.use(
-// 	sessionStore({
-// 		secret: process.env.SESSION_SECRET,
-// 		resave: false,
-// 		saveUninitialized: true,
-// 	}),
-// );
+// The storeLocals middleware copies flash messages (errors, info)
+// and req.user into res.locals so they are available in views.
+// IMPORTANT: This runs before route handlers (like registerDo).
+// If a controller adds new flash messages after this middleware runs,
+// those values must be passed manually in res.render().
+app.use(require("./middleware/storeLocals"));
+app.get("/", (req, res) => {
+	res.render("index");
+});
+app.use("/sessions", require("./routes/sessionRoutes"));
 
 // secret word handling
 
@@ -91,30 +93,6 @@ app.post("/secretWordEndPoint", (req, res) => {
 	res.redirect("/secretWordEndPoint"); // Redirect so refreshes don’t resubmit the form (PRG pattern)
 });
 
-// UPDATE secretWord v.1 - code updated per lesson instructions
-// let secretWord = "syzygy"; <-- comment this out or remove this line
-// app.get("/secretWordEndPoint", (req, res) => {
-// 	if (!req.session.secretWord) {
-// 		req.session.secretWord = "syzygy";
-// 	}
-// 	res.render("secretWordView", { secretWord: req.session.secretWord });
-// });
-
-// app.post("/secretWordEndPoint", (req, res) => {
-// 	req.session.secretWord = req.body.secretWord;
-// 	res.redirect("/secretWordEndPoint");
-// });
-
-// ORIGINAL secretWord v.0 - code added per lesson instructions
-// let secretWord = "syzygy";
-// app.get("/secretWordEndPoint", (req, res) => {
-// 	res.render("secretWordView", { secretWord });
-// });
-// app.post("/secretWordEndPoint", (req, res) => {
-// 	secretWord = req.body.secretWord;
-// 	res.redirect("/secretWordEndPoint");
-// });
-
 // Catch-all 404 handler for unmatched routes
 app.use((req, res) => {
 	res.status(404).send(`That page (${req.url}) was not found.`);
@@ -130,6 +108,8 @@ const port = process.env.PORT || 3000; // Uses environment port (production) or 
 
 const start = async () => {
 	try {
+		// Connecting to the database.
+		await require("./db/connect")(process.env.MONGO_URI);
 		// Starts the HTTP server
 		app.listen(port, () =>
 			console.log(`Server is listening on port ${port}...`),
