@@ -2,6 +2,8 @@
 
 // TODO: Try logon for one of the accounts you have created. You should see that you are logged in and can access the secretWord page. You should also see appropriate error messages for bad logon credentials. Also, test logoff.
 
+// TODO: Try out the secretWordEndPoint page to make sure it still works. Turning on protection is simple. You add the authentication middleware to the route above as follows:
+
 // Load environment variables first
 require("dotenv").config(); // Loads variables from a .env file into process.env so you can use secrets/config safely
 
@@ -77,30 +79,43 @@ app.use("/sessions", require("./routes/sessionRoutes"));
 // secret word handling
 
 // UPDATE secretWord v.2 - code updated per lesson instructions
-app.get("/secretWordEndPoint", (req, res) => {
-	// If the session does not yet have a secretWord
-	if (!req.session.secretWord) {
-		// Initialize the secret word in the session
-		req.session.secretWord = "syzygy";
-	}
+// app.get("/secretWordEndPoint", (req, res) => {
+// 	// If the session does not yet have a secretWord
+// 	if (!req.session.secretWord) {
+// 		// Initialize the secret word in the session
+// 		req.session.secretWord = "syzygy";
+// 	}
 
-	res.locals.info = req.flash("info"); // Makes flash messages available to the EJS template
-	res.locals.errors = req.flash("error"); // Makes flash messages available to the EJS template
-	res.render("secretWordView", { secretWord: req.session.secretWord }); // Renders the page with the secret word from the session
-});
+// 	res.locals.info = req.flash("info"); // Makes flash messages available to the EJS template
+// 	res.locals.errors = req.flash("error"); // Makes flash messages available to the EJS template
+// 	res.render("secretWordView", { secretWord: req.session.secretWord }); // Renders the page with the secret word from the session
+// });
 
-app.post("/secretWordEndPoint", (req, res) => {
-	// Check if the submitted word starts with "P" or "p"
-	if (req.body.secretWord.toUpperCase()[0] == "P") {
-		req.flash("error", "That word won't work!"); // If the submitted word starts with "P" or "p", send this "That word won't work!"" message.
-		req.flash("error", "You can't use words that start with p."); // If the submitted word starts with "P" or "p", send this "You can't use words that start with p." message.
-	} else {
-		req.session.secretWord = req.body.secretWord; // Updates the secret word in the session
-		req.flash("info", "The secret word was changed."); // end this "The secret word was changed." message.
-	}
+// const secretWordRouter = require("./routes/secretWord"); // Original
+const secretWordRouter = require("./routes/secretWordEndPoint"); // Updated
 
-	res.redirect("/secretWordEndPoint"); // Redirect so refreshes don’t resubmit the form (PRG pattern)
-});
+// TODO: enable the middleware after first trying out the secretWordEndPoint page.
+// That causes the authentication middleware to run before the secretWordRouter, and it redirects if any requests are made for those routes before logon.
+// Try it out: login and verify that you can see and change the secretWord. T
+// hen log off and try to go to the "/secretWord" URL.
+// const auth = require("./middleware/auth");
+// app.use("/secretWord", auth, secretWordRouter);
+
+// app.use("/secretWord", secretWordRouter); // Original
+app.use("/secretWordEndPoint", secretWordRouter); // Updated
+
+// app.post("/secretWordEndPoint", (req, res) => {
+// 	// Check if the submitted word starts with "P" or "p"
+// 	if (req.body.secretWord.toUpperCase()[0] == "P") {
+// 		req.flash("error", "That word won't work!"); // If the submitted word starts with "P" or "p", send this "That word won't work!"" message.
+// 		req.flash("error", "You can't use words that start with p."); // If the submitted word starts with "P" or "p", send this "You can't use words that start with p." message.
+// 	} else {
+// 		req.session.secretWord = req.body.secretWord; // Updates the secret word in the session
+// 		req.flash("info", "The secret word was changed."); // end this "The secret word was changed." message.
+// 	}
+
+// 	res.redirect("/secretWordEndPoint"); // Redirect so refreshes don’t resubmit the form (PRG pattern)
+// });
 
 // Catch-all 404 handler for unmatched routes
 app.use((req, res) => {

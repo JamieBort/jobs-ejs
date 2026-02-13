@@ -30,21 +30,29 @@
 
 Back to [Table of Contents](#table-of-contents) above.
 
-1.  Naming mismatch
+1. Naming mismatch
 
-    a. util vs utils
-    - Last weeks [lesson](https://classes.codethedream.org/course/node-v3/lion?week=14&lesson=Server%20Side%20Rendering%20with%20EJS) says to create a `utils` directory.
+   a. util vs utils
+   - Last weeks [lesson](https://classes.codethedream.org/course/node-v3/lion?week=14&lesson=Server%20Side%20Rendering%20with%20EJS) says to create a `utils` directory.
 
-    - However this week's [lesson](https://classes.codethedream.org/course/node-v3/lion?week=15&lesson=Authentication%20with%20Passport) references `util/parseValidationErrs.js` file which is in the `util/` directory.
+   - However this week's [lesson](https://classes.codethedream.org/course/node-v3/lion?week=15&lesson=Authentication%20with%20Passport) references `util/parseValidationErrs.js` file which is in the `util/` directory.
 
-    - And next week's [lesson](https://classes.codethedream.org/course/node-v3/lion?week=16&lesson=Final%20Project%20Begins) also references the `util/` directory.
+   - And next week's [lesson](https://classes.codethedream.org/course/node-v3/lion?week=16&lesson=Final%20Project%20Begins) also references the `util/` directory.
 
-    - I chose to rename the director in question as `util/`.
+   - I chose to rename the director in question as `util/`.
 
-    b. parseValidationErr vs parseValidationErrs
-    - Similar to the util vs utils above.
+   b. parseValidationErr vs parseValidationErrs
+   - Similar to the util vs utils above.
 
-    - parseValidationErrs is used in later lessons so I chose that one.
+   - parseValidationErrs is used in later lessons so I chose that one.
+
+2. In the previous lesson I renamed the following values for clarity - the same value was used in multiple locations but for different purposes. I am sharing this again here because it remains relevant.
+
+   | type      | location                | original value         | current value              |
+   | --------- | ----------------------- | ---------------------- | -------------------------- |
+   | file name | jobs-ejs root directory | ./views/secretWord.ejs | ./views/secretWordView.ejs |
+   | string    | ./app.js                | secretWord             | secretWordEndPoint         |
+   | variable  | ./app.js                | session                | sessionStore               |
 
 <p align="center">
 ************************
