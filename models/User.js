@@ -8,7 +8,7 @@ const mongoose = require("mongoose"); // Imports Mongoose to define the User sch
 const bcrypt = require("bcryptjs"); // Library for hashing and comparing passwords securely
 
 // TODO: You must edit models/User.js to remove those references in order for User.js to load. We aren’t using JWTs in this project.
-// *** NOTE: commented this out ***
+// *** NOTE: commented this out.
 // const jwt = require("jsonwebtoken"); // Library for creating and verifying JSON Web Tokens
 
 // Defines the schema for user documents (It defines the shape of the collection in MondgoDB.)
@@ -43,16 +43,16 @@ UserSchema.pre("save", async function () {
 	this.password = await bcrypt.hash(this.password, salt); // Hashes the password and replaces plain text
 });
 
-// *** NOTE: commented this out ***
+// *** NOTE: commented this out.
 // Instance method to generate a JWT for the user
 // For reference https://mongoosejs.com/docs/guide.html#methods
 // UserSchema.methods.createJWT = function () {
 // 	return jwt.sign(
 // 		{ userId: this._id, name: this.name }, // Payload includes user ID and name
-// NOTE: See .env.ctd-group-session
+// *** NOTE: See .env.ctd-group-session
 // process.env.JWT_SECRET, // Secret key from environment variables
 // {
-// NOTE: See .env.ctd-group-session
+// *** NOTE: See .env.ctd-group-session
 // 			expiresIn: process.env.JWT_LIFETIME, // Token expiration configured via environment variables
 // 		},
 // 	);

@@ -1,3 +1,7 @@
+// ./app.js
+
+// TODO: Try logon for one of the accounts you have created. You should see that you are logged in and can access the secretWord page. You should also see appropriate error messages for bad logon credentials. Also, test logoff.
+
 // Load environment variables first
 require("dotenv").config(); // Loads variables from a .env file into process.env so you can use secrets/config safely
 
@@ -51,6 +55,11 @@ if (app.get("env") === "production") {
 }
 
 app.use(sessionStore(sessionParms)); // Registers session middleware with the configured options.
+const passport = require("passport");
+const passportInit = require("./passport/passportInit");
+passportInit(); // First we call the passportInit function that we created in the previous section. This registers our local Passport strategy, and sets up the serializeUser and deserializeUser functions onto the passport object.
+app.use(passport.initialize()); //Then we call passport.initialize() (which sets up Passport to work with Express and sessions) and passport.session() (which sets up an Express middleware that runs on all requests, checks the session cookie for a user id, and if it finds one, deserializes and attaches it to the req.user property).
+app.use(passport.session());
 
 app.use(require("connect-flash")()); // *** NEW CODE*** Enables flash messages stored in the session (temporary messages)
 
