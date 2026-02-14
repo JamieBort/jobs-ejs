@@ -2,21 +2,31 @@
 
 ## Table of Contents
 
-1. [Points to highlight](#points-to-highlight)
+1. [Summary Of Lesson](#summary-of-lesson)
 
-2. [Project Dependencies](#project-dependencies)
+2. [Points to highlight](#points-to-highlight)
 
-3. [(EJS) Templating - what it is and how it works](#ejs-templating---what-it-is-and-how-it-works)
+3. [Project Dependencies](#project-dependencies)
 
-4. [Sessions and Storage](#sessions-and-storage)
+4. [(EJS) Templating - what it is and how it works](#ejs-templating---what-it-is-and-how-it-works)
 
-5. [Flash](#flash)
+5. [Sessions and Storage](#sessions-and-storage)
 
-6. [Redirect](#redirect)
+6. [Flash](#flash)
 
-7. [Diagram Session + Flash + MongoDB Interaction in Express](#diagram-session--flash--mongodb-interaction-in-express)
+7. [Redirect](#redirect)
 
-8. [References](#references)
+8. [Diagram Session + Flash + MongoDB Interaction in Express](#diagram-session--flash--mongodb-interaction-in-express)
+
+9. [Resources](#resources)
+
+<p align="center">************************</p>
+
+## Summary Of Lesson
+
+Back to [Table of Contents](#table-of-contents) above.
+
+This lesson walks you through building a **jobs application using server-side rendering** with the **EJS** templating language instead of a separate frontend + backend. You start by creating a new repository for your project, setting up `.gitignore` and `.env` files, and initializing it with `npm`. You install required packages (including `express`, `ejs`, `mongoose`, session and security middleware). Then you copy necessary database and model files from a previous jobs API project and create a directory structure with `controllers`, `routes`, `middleware`, `views`, and `views/partials`. You set up `app.js` with EJS as the view engine, body-parser middleware, basic route handling, and error handling. You build your first EJS template that combines static HTML with dynamic `<%= %>` content, and later use partials (like header/footer) for reuse across pages. Overall, the tutorial teaches how to **render dynamic pages on the server using EJS** and structure an Express-based SSR app that interacts with MongoDB.
 
 <p align="center">************************</p>
 
@@ -24,9 +34,7 @@
 
 Back to [Table of Contents](#table-of-contents) above.
 
-NOTE 1:
-
-    I've renamed the following values for clarity - the same value was used in multiple locations but for different purposes.
+1.  I've renamed the following values for clarity - the same value was used in multiple locations but for different purposes.
 
     | type      | location                | original value         | current value              |
     | --------- | ----------------------- | ---------------------- | -------------------------- |
@@ -34,9 +42,7 @@ NOTE 1:
     | string    | ./app.js                | secretWord             | secretWordEndPoint         |
     | variable  | ./app.js                | session                | sessionStore               |
 
-NOTE 2:
-
-    In a previous lesson ("Jobs API - part 1" lesson) we used JWT tokens for signin authentication.
+2.  In a previous lesson ("Jobs API - part 1" lesson) we used JWT tokens for signin authentication.
 
     This week we're using the "express-session" dependency for the same purpose.
 
@@ -726,7 +732,7 @@ Important:
 
 <p align="center">************************</p>
 
-## References
+## Resources
 
 Back to [Table of Contents](#table-of-contents) above.
 

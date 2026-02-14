@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
 	}
 
 	// res.render("secretWord", { secretWord: req.session.secretWord }); // Original
-	res.render("secretWordEndPoint", { secretWord: req.session.secretWord }); // Updated
+	res.render("secretWordView", { secretWord: req.session.secretWord }); // Updated
 });
 
 router.post("/", (req, res) => {

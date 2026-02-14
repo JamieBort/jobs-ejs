@@ -1,9 +1,5 @@
 // ./app.js
 
-// TODO: Try logon for one of the accounts you have created. You should see that you are logged in and can access the secretWord page. You should also see appropriate error messages for bad logon credentials. Also, test logoff.
-
-// TODO: Try out the secretWordEndPoint page to make sure it still works. Turning on protection is simple. You add the authentication middleware to the route above as follows:
-
 // Load environment variables first
 require("dotenv").config(); // Loads variables from a .env file into process.env so you can use secrets/config safely
 
@@ -12,9 +8,9 @@ require("express-async-errors"); // Modify/extend existing code at runtime witho
 
 const express = require("express"); // Import Express framework
 
-const sessionStore = require("express-session"); // *** NEW CODE*** Middleware for handling user sessions (cookies + server-side storage)
+const sessionStore = require("express-session"); // Middleware for handling user sessions (cookies + server-side storage)
 
-const MongoDBStore = require("connect-mongodb-session")(sessionStore); // *** NEW CODE*** Creates a MongoDB-backed session store using express-session
+const MongoDBStore = require("connect-mongodb-session")(sessionStore); // Creates a MongoDB-backed session store using express-session
 
 // Access environment variables
 const url = process.env.MONGO_URI; // MongoDB connection string from .env
@@ -25,9 +21,8 @@ const app = express(); // Creates the Express application instance
 // Middleware
 app.use(require("body-parser").urlencoded({ extended: true })); // Parses application/x-www-form-urlencoded form data into req.body
 
-app.set("view engine", "ejs"); // *** NEW CODE*** Tells Express to use EJS as the template engine. See my notes.
+app.set("view engine", "ejs"); // Tells Express to use EJS as the template engine. See my notes.
 
-// *** NEW CODE*** UPDATE session v.1 - code updated per lesson instructions
 const store = new MongoDBStore({
 	// may throw an error, which won't be caught
 	uri: url, // MongoDB connection string
@@ -38,7 +33,7 @@ store.on("error", function (error) {
 	console.log(error); // Logs errors if the MongoDB session store fails.
 });
 
-// *** NEW CODE*** Configure options.
+// Configure options.
 const sessionParms = {
 	secret: process.env.SESSION_SECRET, // Used to sign the session ID cookie (must be kept secret)
 
@@ -63,7 +58,7 @@ passportInit(); // First we call the passportInit function that we created in th
 app.use(passport.initialize()); //Then we call passport.initialize() (which sets up Passport to work with Express and sessions) and passport.session() (which sets up an Express middleware that runs on all requests, checks the session cookie for a user id, and if it finds one, deserializes and attaches it to the req.user property).
 app.use(passport.session());
 
-app.use(require("connect-flash")()); // *** NEW CODE*** Enables flash messages stored in the session (temporary messages)
+app.use(require("connect-flash")()); // Enables flash messages stored in the session (temporary messages)
 
 // The storeLocals middleware copies flash messages (errors, info)
 // and req.user into res.locals so they are available in views.
@@ -77,45 +72,13 @@ app.get("/", (req, res) => {
 app.use("/sessions", require("./routes/sessionRoutes"));
 
 // secret word handling
-
-// UPDATE secretWord v.2 - code updated per lesson instructions
-// app.get("/secretWordEndPoint", (req, res) => {
-// 	// If the session does not yet have a secretWord
-// 	if (!req.session.secretWord) {
-// 		// Initialize the secret word in the session
-// 		req.session.secretWord = "syzygy";
-// 	}
-
-// 	res.locals.info = req.flash("info"); // Makes flash messages available to the EJS template
-// 	res.locals.errors = req.flash("error"); // Makes flash messages available to the EJS template
-// 	res.render("secretWordView", { secretWord: req.session.secretWord }); // Renders the page with the secret word from the session
-// });
-
 // const secretWordRouter = require("./routes/secretWord"); // Original
 const secretWordRouter = require("./routes/secretWordEndPoint"); // Updated
 
-// TODO: enable the middleware after first trying out the secretWordEndPoint page.
 // That causes the authentication middleware to run before the secretWordRouter, and it redirects if any requests are made for those routes before logon.
-// Try it out: login and verify that you can see and change the secretWord. T
-// hen log off and try to go to the "/secretWord" URL.
-// const auth = require("./middleware/auth");
-// app.use("/secretWord", auth, secretWordRouter);
-
-// app.use("/secretWord", secretWordRouter); // Original
-app.use("/secretWordEndPoint", secretWordRouter); // Updated
-
-// app.post("/secretWordEndPoint", (req, res) => {
-// 	// Check if the submitted word starts with "P" or "p"
-// 	if (req.body.secretWord.toUpperCase()[0] == "P") {
-// 		req.flash("error", "That word won't work!"); // If the submitted word starts with "P" or "p", send this "That word won't work!"" message.
-// 		req.flash("error", "You can't use words that start with p."); // If the submitted word starts with "P" or "p", send this "You can't use words that start with p." message.
-// 	} else {
-// 		req.session.secretWord = req.body.secretWord; // Updates the secret word in the session
-// 		req.flash("info", "The secret word was changed."); // end this "The secret word was changed." message.
-// 	}
-
-// 	res.redirect("/secretWordEndPoint"); // Redirect so refreshes don’t resubmit the form (PRG pattern)
-// });
+const auth = require("./middleware/auth");
+// app.use("/secretWord", auth, secretWordRouter); // Original
+app.use("/secretWordEndPoint", auth, secretWordRouter); // Updated
 
 // Catch-all 404 handler for unmatched routes
 app.use((req, res) => {

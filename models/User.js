@@ -7,7 +7,6 @@ const mongoose = require("mongoose"); // Imports Mongoose to define the User sch
 //       Because "bcryptjs" is already in the "dependencies" object of the package.json file.
 const bcrypt = require("bcryptjs"); // Library for hashing and comparing passwords securely
 
-// TODO: You must edit models/User.js to remove those references in order for User.js to load. We aren’t using JWTs in this project.
 // *** NOTE: commented this out.
 // const jwt = require("jsonwebtoken"); // Library for creating and verifying JSON Web Tokens
 
