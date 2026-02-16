@@ -1,4 +1,4 @@
-# 20260211-lesson12-agenda
+# 20260218-lesson13-notes
 
 ## Table of Contents
 
@@ -10,9 +10,11 @@
 
 4. [Project Dependencies](#project-dependencies)
 
-5. [Sessions and Storage]() maybe don't' use this one
+5. [Order of operations for the completing assignment](#order-of-operations-for-the-completing-assignment)
 
-6. [Resources](#resources)
+6. [Flow of logic](#flow-of-logic) <!-- TODO: UPDATE section title -->
+
+7. [Resources](#resources)
 
 <p align="center">************************</p>
 
@@ -86,21 +88,21 @@ Back to [Table of Contents](#table-of-contents) above.
 
 Same as last week. But this week we're discussing and working with passport and passport-local.
 
-**passport** <--**NEW CODE** (not discussed in the lesson but used in a future lesson)
+**passport** <-- **Were using this dependency in this lesson**
 
 - Authentication middleware
 - Handles login state, serialization, and session integration
 
-**passport-local** <--**NEW CODE** (not discussed in the lesson but used in a future lesson)
+**passport-local** <-- **Were using this dependency in this lesson**
 
 - Local username/email + password authentication strategy
 - Typically used with bcrypt for password verification
 
 <p align="center">************************</p>
 
-## Order of operations
+## Order of operations for the completing assignment
 
-<!-- TODO: Order of operations -->
+<!-- TODO: Order of operations for the completing assignment -->
 
 Back to [Table of Contents](#table-of-contents) above.
 
@@ -148,6 +150,20 @@ D. Protect a Route
 
 <p align="center">************************</p>
 
+## Flow of logic <!-- TODO: UPDATE section title -->
+
+User flow
+
+<!-- TODO: Flow -->
+
+Back to [Table of Contents](#table-of-contents) above.
+
+1. User navigates to home page localhost 3000
+
+2. Either log in or register.
+
+<p align="center">************************</p>
+
 ## Resources
 
 <!-- TODO: Resources -->
@@ -162,4 +178,8 @@ Back to [Table of Contents](#table-of-contents) above.
 
    iii. https://www.npmjs.com/package/passport-local
 
-2.
+2. lesson/assignment page
+
+3. [MongoDB](https://www.mongodb.com/) database - no new content this week. But the database is used for this lesson.
+
+4. _no video this lesson_

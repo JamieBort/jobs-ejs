@@ -10,7 +10,9 @@ const express = require("express"); // Import Express framework
 
 const sessionStore = require("express-session"); // Middleware for handling user sessions (cookies + server-side storage)
 
-const MongoDBStore = require("connect-mongodb-session")(sessionStore); // Creates a MongoDB-backed session store using express-session
+// Creates a MongoDB-backed session store using express-session
+// Pass sessionStore into it, and it returns a MongoDB-backed session store class
+const MongoDBStore = require("connect-mongodb-session")(sessionStore);
 
 // Access environment variables
 const url = process.env.MONGO_URI; // MongoDB connection string from .env
@@ -18,11 +20,15 @@ const url = process.env.MONGO_URI; // MongoDB connection string from .env
 // Initialize the app
 const app = express(); // Creates the Express application instance
 
-// Middleware
-app.use(require("body-parser").urlencoded({ extended: true })); // Parses application/x-www-form-urlencoded form data into req.body
+// Parses application/x-www-form-urlencoded form data into req.body
+// Without this req.body would be undefined.
+app.use(require("body-parser").urlencoded({ extended: true }));
 
 app.set("view engine", "ejs"); // Tells Express to use EJS as the template engine. See my notes.
 
+// Connects to MongoDB using MONGO_URI
+// Creates (or uses) collection: mySessions
+// This is where session data is stored
 const store = new MongoDBStore({
 	// may throw an error, which won't be caught
 	uri: url, // MongoDB connection string
@@ -51,7 +57,11 @@ if (app.get("env") === "production") {
 	sessionParms.cookie.secure = true; // Serve secure cookies. But only send cookies over HTTPS in production
 }
 
+// Reads cookie
+// Looks up session in MongoDB
+// Attaches session data to req.session
 app.use(sessionStore(sessionParms)); // Registers session middleware with the configured options.
+
 const passport = require("passport");
 const passportInit = require("./passport/passportInit");
 passportInit(); // First we call the passportInit function that we created in the previous section. This registers our local Passport strategy, and sets up the serializeUser and deserializeUser functions onto the passport object.
@@ -66,9 +76,9 @@ app.use(require("connect-flash")()); // Enables flash messages stored in the ses
 // If a controller adds new flash messages after this middleware runs,
 // those values must be passed manually in res.render().
 app.use(require("./middleware/storeLocals"));
-app.get("/", (req, res) => {
-	res.render("index");
-});
+
+app.get("/", (req, res) => res.render("index")); // Render the index.ejs template)
+
 app.use("/sessions", require("./routes/sessionRoutes"));
 
 // secret word handling
@@ -81,9 +91,9 @@ const auth = require("./middleware/auth");
 app.use("/secretWordEndPoint", auth, secretWordRouter); // Updated
 
 // Catch-all 404 handler for unmatched routes
-app.use((req, res) => {
-	res.status(404).send(`That page (${req.url}) was not found.`);
-});
+app.use((req, res) =>
+	res.status(404).send(`That page (${req.url}) was not found.`),
+);
 
 // Centralized error handler for thrown or async errors
 app.use((err, req, res, next) => {

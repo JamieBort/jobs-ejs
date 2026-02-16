@@ -1,4 +1,4 @@
-## CtD Group Mentor Session Agenda for Lesson 12 / Server Side Rendering with EJS
+## CtD Group Mentor Session Agenda for Lesson 13 / Authentication with Passport
 
 Wednesday, 18 February 2026
 

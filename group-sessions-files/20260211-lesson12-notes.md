@@ -751,7 +751,3 @@ Back to [Table of Contents](#table-of-contents) above.
 3. [MongoDB](https://www.mongodb.com/) database - no new content this week. But the database is used for this lesson.
 
 4. _no video this lesson_
-
----
-
-Back to [Table of Contents](#table-of-contents) above.
