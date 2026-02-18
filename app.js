@@ -82,13 +82,11 @@ app.get("/", (req, res) => res.render("index")); // Render the index.ejs templat
 app.use("/sessions", require("./routes/sessionRoutes"));
 
 // secret word handling
-// const secretWordRouter = require("./routes/secretWord"); // Original
-const secretWordRouter = require("./routes/secretWordEndPoint"); // Updated
+const secretWordRouter = require("./routes/secretWordEndPoint");
 
 // That causes the authentication middleware to run before the secretWordRouter, and it redirects if any requests are made for those routes before logon.
 const auth = require("./middleware/auth");
-// app.use("/secretWord", auth, secretWordRouter); // Original
-app.use("/secretWordEndPoint", auth, secretWordRouter); // Updated
+app.use("/secretWordEndPoint", auth, secretWordRouter);
 
 // Catch-all 404 handler for unmatched routes
 app.use((req, res) =>

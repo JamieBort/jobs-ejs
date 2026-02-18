@@ -43,12 +43,11 @@ const logonShow = (req, res) => {
 	if (req.user) {
 		return res.redirect("/");
 	}
-	// *** NOTE: Since we’re letting Passport handle setting the req.flash properties now, we can remove these lines that set the flash messages for the loginShow handler.
-	// res.render("logon", {
-	// 	errors: req.flash("error"),
-	// 	info: req.flash("info"),
-	// });
-	res.render("logon");
+
+	res.render("logon", {
+		errors: req.flash("error"),
+		info: req.flash("info"),
+	});
 };
 
 // *** NOTE: We don’t need a controller handler for login, because Passport handles that for us.

@@ -4,7 +4,7 @@
 
 1. [Summary Of Lesson](#summary-of-lesson)
 
-2. [Accessibility](#to-share-with-students-about-accessibility) <!-- TODO: UPDATE section title and link -->
+2. [Note about digital accessibility](#note-about-digital-accessibility)
 
 3. [Points to highlight](#points-to-highlight)
 
@@ -12,7 +12,7 @@
 
 5. [Order of operations for the completing assignment](#order-of-operations-for-the-completing-assignment)
 
-6. [Flow of logic](#flow-of-logic) <!-- TODO: UPDATE section title -->
+6. [Flow of logic](#flow-of-logic)
 
 7. [Resources](#resources)
 
@@ -28,13 +28,13 @@ The lesson teaches how to add **user authentication** to a server-rendered Node.
 
 <p align="center">************************</p>
 
-## To share with students about accessibility <!-- TODO: UPDATE section title -->
+## Note about digital accessibility
 
 <!-- TODO: Accessibility -->
 
 Back to [Table of Contents](#table-of-contents) above.
 
-<!-- TODO: SHARE this section with all of the students in the slack channel. -->
+<!-- TODO: SHARE this section in the Discussion Slack channel. -->
 
 The lesson mentions the existence of digital accessibility (A11Y) and shares a few resources. I am coming back to this topic because it is important and deserves more attention for at least two reasons.
 
@@ -150,17 +150,183 @@ D. Protect a Route
 
 <p align="center">************************</p>
 
-## Flow of logic <!-- TODO: UPDATE section title -->
-
-User flow
+## Flow of logic
 
 <!-- TODO: Flow -->
 
 Back to [Table of Contents](#table-of-contents) above.
 
-1. User navigates to home page localhost 3000
+**Diagrams showing**
 
-2. Either log in or register.
+- URL the user visits
+- Middleware they pass through (`body-parser`, `session`, `passport`, `auth`)
+- Which EJS view they see in the browser
+- What they can do next (click link, submit form, logoff, etc.)
+
+Giving the **end-user perspective**
+
+- Every navigation starts at `/`
+- Login/register → session created
+- Secret word page → protected route, uses session + flash
+- Logoff → session cleared
+
+### 🔹 End-User Flow Chart (from `app.js`)
+
+```
+[Start] User navigates to http://localhost:3000/
+   |
+   v
+[Middleware in app.js]
+   - body-parser parses req.body
+   - session middleware attaches req.session
+   - passport.initialize()
+   - passport.session() attaches req.user (if logged in)
+   - connect-flash stores flash messages
+   - storeLocals sets res.locals.user, res.locals.flash
+   |
+   v
+[Route Handler]
+   - GET "/"
+   - app.get("/", (req, res) => res.render("index"))
+   |
+   v
+[View Rendered]
+   - ./views/index.ejs
+   - Includes partials:
+       - ./views/partials/head.ejs
+       - ./views/partials/header.ejs (shows user if logged in)
+       - ./views/partials/footer.ejs
+   |
+   v
+[User Sees]
+   - If NOT logged in: (Option 1)
+       - Links: "Logon" (/sessions/logon) and "Register" (/sessions/register)
+   - If logged in: (Option 2)
+       - Link: "Secret Word" (/secretWordEndPoint)
+       - Logged-in user info in header
+```
+
+### User clicks **Logon** (`/sessions/logon`) (Option 1)
+
+```
+[URL] GET /sessions/logon
+   |
+   v
+[Middleware] (same as above)
+   |
+   v
+[Route Handler] logonShow → renders ./views/logon.ejs
+   |
+   v
+[View Rendered]
+   - ./views/logon.ejs
+   - Includes head, header, footer partials
+   - Form fields: email, password, buttons
+   |
+   v
+[User Action]
+   - Enter email/password → POST /sessions/logon
+```
+
+```
+[POST /sessions/logon] → passport.authenticate("local")
+   |
+   v
+[Passport LocalStrategy runs]
+   - Verify credentials (calls done(null,user) if success)
+   - On success → user.id stored in session (serializeUser)
+   - req.user populated on next request
+   |
+   v
+[Redirect]
+   - success → GET "/" (homepage)
+   - failure → GET "/sessions/logon" (login page again with flash errors)
+```
+
+### User clicks **Register** (`/sessions/register`) (Option 2)
+
+```
+[URL] GET /sessions/register
+   |
+   v
+[Route Handler] registerShow → renders ./views/register.ejs
+   |
+   v
+[View Rendered]
+   - ./views/register.ejs
+   - Includes head, header, footer
+   - Form fields: name, email, password, confirm password
+   |
+   v
+[User Action]
+   - Enter info → POST /sessions/register
+```
+
+```
+[POST /sessions/register] → registerDo (controller)
+   - Creates new user in DB
+   - May set flash messages on success/failure
+   |
+   v
+[Redirect]
+   - Typically back to "/" or "/sessions/logon" depending on controller
+```
+
+### User clicks **Secret Word** (`/secretWordEndPoint`) [Protected by auth middleware]
+
+```
+[URL] GET /secretWordEndPoint
+   |
+   v
+[auth middleware]
+   - Checks if req.user exists (user logged in)
+   - If NOT logged in → redirect to logon
+   - If logged in → continue
+   |
+   v
+[Route Handler] secretWordRouter.get("/")
+   - Initialize req.session.secretWord = "syzygy" if not set
+   - Render ./views/secretWordView.ejs with secretWord
+```
+
+```
+[View Rendered]
+   - ./views/secretWordView.ejs
+   - Includes head, header, footer
+   - Shows current secretWord
+   - Form to submit new secret word
+   |
+   v
+[User Action]
+   - Enter new word → POST /secretWordEndPoint
+```
+
+```
+[POST /secretWordEndPoint]
+   - If word starts with "P" → flash errors, redirect back to GET
+   - Else → update req.session.secretWord, flash info, redirect back to GET
+```
+
+### User clicks **Logoff** (from header form)
+
+```
+[POST /sessions/logoff]
+   - logoff controller clears session / logs out user
+   - Redirects to homepage "/"
+```
+
+### 🔹 Summary Table Mapping URL → View
+
+| URL                          | Middleware / Checks                                | View Rendered                         | User Action / Notes                |
+| ---------------------------- | -------------------------------------------------- | ------------------------------------- | ---------------------------------- |
+| `/`                          | body-parser, session, passport, flash, storeLocals | `index.ejs`                           | Click logon/register/secret link   |
+| `/sessions/logon` (GET)      | body-parser, session, passport, flash, storeLocals | `logon.ejs`                           | Submit login form                  |
+| `/sessions/logon` (POST)     | passport.authenticate("local")                     | redirects: `/` or `/sessions/logon`   | Login success/failure              |
+| `/sessions/register` (GET)   | body-parser, session, passport, flash, storeLocals | `register.ejs`                        | Submit registration form           |
+| `/sessions/register` (POST)  | registerDo (controller)                            | redirects to `/` or `/sessions/logon` | New user created                   |
+| `/sessions/logoff` (POST)    | clears session                                     | redirect `/`                          | User logged off                    |
+| `/secretWordEndPoint` (GET)  | auth middleware, session                           | `secretWordView.ejs`                  | Show secret word and form          |
+| `/secretWordEndPoint` (POST) | auth middleware, session                           | redirect GET `/secretWordEndPoint`    | Update secret word, flash messages |
 
 <p align="center">************************</p>
 
@@ -170,7 +336,7 @@ Back to [Table of Contents](#table-of-contents) above.
 
 Back to [Table of Contents](#table-of-contents) above.
 
-1. passport & passport-local dependencies
+1. `passport` & `passport-local` dependencies
 
    i. https://www.passportjs.org/
 
@@ -178,7 +344,7 @@ Back to [Table of Contents](#table-of-contents) above.
 
    iii. https://www.npmjs.com/package/passport-local
 
-2. lesson/assignment page
+2. [Authentication with Passport](https://classes.codethedream.org/course/node-v3/lion?week=15&lesson=Authentication%20with%20Passport) lesson/assignment page
 
 3. [MongoDB](https://www.mongodb.com/) database - no new content this week. But the database is used for this lesson.
 
