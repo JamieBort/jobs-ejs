@@ -36,7 +36,7 @@ Back to [Table of Contents](#table-of-contents) above.
 
 <!-- TODO: SHARE this section in the Discussion Slack channel. -->
 
-The lesson mentions the existence of digital accessibility (A11Y) and shares a few resources. I am coming back to this topic because it is important and deserves more attention for at least two reasons.
+This week's lesson mentions the existence of digital accessibility (A11Y) and shares a few resources. I am coming back to this topic because it is important and deserves more attention for at least two reasons.
 
 First, as mentioned in the lesson, the goal of digital accessibility is to ensure that the same resources available to people without disabilities are equally available to people with disabilities. By improving the experience for those who rely on accessible design, we also create a better, more usable experience for everyone — including those who may not explicitly depend on accessibility features. As software developers, as we grow in our careers and deepen our expertise in our specialized fields, we should each advocate for people with disabilities by intentionally expanding our knowledge and skills to build more accessible software.
 
@@ -336,16 +336,30 @@ Giving the **end-user perspective**
 
 Back to [Table of Contents](#table-of-contents) above.
 
-1. `passport` & `passport-local` dependencies
+1.  Dependencies
 
-   i. https://www.passportjs.org/
+    a. `passport` dependency ** NEW **
 
-   ii. https://www.npmjs.com/package/passport
+    i. https://www.passportjs.org/
 
-   iii. https://www.npmjs.com/package/passport-local
+    ii. https://www.npmjs.com/package/passport
 
-2. [Authentication with Passport](https://classes.codethedream.org/course/node-v3/lion?week=15&lesson=Authentication%20with%20Passport) lesson/assignment page
+    b. `passport-local` dependency ** NEW **
 
-3. [MongoDB](https://www.mongodb.com/) database - no new content this week. But the database is used for this lesson.
+    iii. https://www.npmjs.com/package/passport-local
 
-4. _no video this lesson_
+    iv. https://www.passportjs.org/packages/passport-local/
+
+    c. connect-mongodb-session
+
+    v. https://www.npmjs.com/package/connect-mongodb-session
+
+    d. express-session
+
+    vi. https://www.npmjs.com/package/express-session
+
+2.  [Authentication with Passport](https://classes.codethedream.org/course/node-v3/lion?week=15&lesson=Authentication%20with%20Passport) lesson/assignment page
+
+3.  [MongoDB](https://www.mongodb.com/) database - no new content this week. But the database is used for this lesson.
+
+4.  _no video this lesson_

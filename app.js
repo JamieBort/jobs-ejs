@@ -62,11 +62,13 @@ if (app.get("env") === "production") {
 // Attaches session data to req.session
 app.use(sessionStore(sessionParms)); // Registers session middleware with the configured options.
 
+// *** NOTE: Tell Passport to authenticate users and retrieve them from the database.
 const passport = require("passport");
 const passportInit = require("./passport/passportInit");
-passportInit(); // First we call the passportInit function that we created in the previous section. This registers our local Passport strategy, and sets up the serializeUser and deserializeUser functions onto the passport object.
-app.use(passport.initialize()); //Then we call passport.initialize() (which sets up Passport to work with Express and sessions) and passport.session() (which sets up an Express middleware that runs on all requests, checks the session cookie for a user id, and if it finds one, deserializes and attaches it to the req.user property).
-app.use(passport.session());
+passportInit();
+
+app.use(passport.initialize()); // Sets up Passport to work with Express and sessions.
+app.use(passport.session()); // Express middleware that runs on ALL REQUESTS, checks the session cookie for a user id, and if it finds one, deserializes and attaches it to the req.user property.
 
 app.use(require("connect-flash")()); // Enables flash messages stored in the session (temporary messages)
 
@@ -79,7 +81,7 @@ app.use(require("./middleware/storeLocals"));
 
 app.get("/", (req, res) => res.render("index")); // Render the index.ejs template)
 
-app.use("/sessions", require("./routes/sessionRoutes"));
+app.use("/sessions", require("./routes/sessionRoutes")); // Is used when we navigate to `http://localhost:3000/sessions/logon` or `http://localhost:3000/sessions/register` via `./views/index.ejs`
 
 // secret word handling
 const secretWordRouter = require("./routes/secretWordEndPoint");

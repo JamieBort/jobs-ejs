@@ -79,6 +79,7 @@ const passportInit = () => {
 		),
 	);
 
+	// Sends info to database.
 	passport.serializeUser(async function (user, done) {
 		// Called after successful authentication.
 		// error = null (no error)
@@ -87,6 +88,7 @@ const passportInit = () => {
 		done(null, user.id);
 	});
 
+	// Queries database for info.
 	passport.deserializeUser(async function (id, done) {
 		try {
 			const user = await User.findById(id);
