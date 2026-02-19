@@ -12,9 +12,9 @@ Wednesday, 18 February 2026
 
 3. Questions - Interrupt me at any time for questions or comments.
 
-4. [Resources](../group-sessions-files/20260211-lesson12-notes.md/#resources) for this lesson are listed in the [20260211-lesson12-notes.md](../group-sessions-files/20260218-lesson13-notes.md) file.
+4. [Resources](./20260218-lesson13-notes.md/#resources) for this lesson are listed in the [20260218-lesson13-notes.md](./20260218-lesson13-notes.md) file.
 
-5. Highlight [Digital Accessibility](20260218-lesson13-notes.md#note-about-digital-accessibility) in software development. Both the importance of it as well as the opportunity to specialize in it.
+5. Highlight [Digital Accessibility](./20260218-lesson13-notes.md#note-about-digital-accessibility) in software development. Both the importance of it as well as the opportunity to specialize in it.
 
 6. I will go over the new code for this week.
 
