@@ -20,8 +20,6 @@
 
 ## Summary Of Lesson
 
-<!-- TODO: Summary -->
-
 Back to [Table of Contents](#table-of-contents) above.
 
 The lesson teaches how to add **user authentication** to a server-rendered Node.js app using **Passport** and the **passport-local** strategy. It walks you through creating login and registration views, updating headers to show the logged-in user, and setting up routes and controllers for registering, logging in (with Passport), and logging out. You then configure Passport with a local strategy that checks email and password against your MongoDB user model, and add session support so `req.user` is available. Finally the tutorial shows how to protect routes so only authenticated users can access them.
@@ -30,11 +28,7 @@ The lesson teaches how to add **user authentication** to a server-rendered Node.
 
 ## Note about digital accessibility
 
-<!-- TODO: Accessibility -->
-
 Back to [Table of Contents](#table-of-contents) above.
-
-<!-- TODO: SHARE this section in the Discussion Slack channel. -->
 
 This week's lesson mentions the existence of digital accessibility (A11Y) and shares a few resources. I am coming back to this topic because it is important and deserves more attention for at least two reasons.
 
@@ -44,13 +38,11 @@ Second, the field of digital accessibility continues to grow — much like softw
 
 Next Steps: I will leave it to you to look into this further. Aside from the resources shared in the [lesson](https://classes.codethedream.org/course/node-v3/lion?week=15&lesson=Authentication%20with%20Passport), you could also search online for a combination of `a11y`, `resources`, `standards`, `accessibility`, `digital accessibility`, and `software development`. And while I am not at all an expert in the field, you're always welcome to DM me with question. I'll do my best to get you a sufficient answer.
 
-<!-- See notes in Logseq -->
+Note: a variation of this was also shared [here](https://codethedream.slack.com/archives/C01SFH46W72/p1771513562236669).
 
 <p align="center">************************</p>
 
 ## Points to highlight
-
-<!-- TODO: Points to highlight -->
 
 Back to [Table of Contents](#table-of-contents) above.
 
@@ -82,8 +74,6 @@ Back to [Table of Contents](#table-of-contents) above.
 
 ## Project Dependencies
 
-<!-- TODO: Project Dependencies -->
-
 Back to [Table of Contents](#table-of-contents) above.
 
 Same as last week. But this week we're discussing and working with passport and passport-local.
@@ -101,8 +91,6 @@ Same as last week. But this week we're discussing and working with passport and 
 <p align="center">************************</p>
 
 ## Order of operations for the completing assignment
-
-<!-- TODO: Order of operations for the completing assignment -->
 
 Back to [Table of Contents](#table-of-contents) above.
 
@@ -151,8 +139,6 @@ D. Protect a Route
 <p align="center">************************</p>
 
 ## Flow of logic
-
-<!-- TODO: Flow -->
 
 Back to [Table of Contents](#table-of-contents) above.
 
@@ -331,8 +317,6 @@ Giving the **end-user perspective**
 <p align="center">************************</p>
 
 ## Resources
-
-<!-- TODO: Resources -->
 
 Back to [Table of Contents](#table-of-contents) above.
 
