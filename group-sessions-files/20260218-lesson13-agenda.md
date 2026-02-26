@@ -12,7 +12,7 @@ Wednesday, 18 February 2026
 
 3. Questions - Interrupt me at any time for questions or comments.
 
-4. If you you find anything in this repo that needs correcting, contact me via [Slack](https://codethedream.slack.com/team/U01R7NXHVJM). Even better, fork this repo, correct it, and lastly create a Pull Request.
+4. If you find anything in this repo that needs correcting, contact me via [Slack](https://codethedream.slack.com/team/U01R7NXHVJM). Even better, fork this repo, correct it, and lastly create a Pull Request.
 
 ### Agenda
 
