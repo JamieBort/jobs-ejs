@@ -33,10 +33,16 @@ const registerDo = async (req, res, next) => {
 };
 
 const logoff = (req, res) => {
+	// Clear the CSRF token before destroying the session
+	// csrf.clearToken(req, res);
+
+	// Destroy the session
 	req.session.destroy(function (err) {
 		if (err) {
 			console.log(err);
 		}
+
+		// Redirect to the home page after successful logoff
 		res.redirect("/");
 	});
 };

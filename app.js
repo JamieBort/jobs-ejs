@@ -80,11 +80,16 @@ app.use(require("./middleware/storeLocals"));
 /* ---------------- CSRF PROTECTION ---------------- */
 
 const csrfMiddleware = csrf.csrf(); // Creates CSRF protection middleware
-app.use(csrfMiddleware); // Applies CSRF protection to all routes
+
+// Applies CSRF protection to all routes
+// For each request, it:
+//       Checks for a valid CSRF token on state-changing requests (POST, PUT, DELETE, etc.)
+//       Rejects the request if the token is missing or invalid
+app.use(csrfMiddleware);
 
 // Middleware to expose CSRF token to views
 app.use((req, res, next) => {
-	res.locals._csrf = csrf.getToken(req, res); // Generates and stores CSRF token in response locals
+	res.locals._csrf = csrf.getToken(req, res); // Generates (or retrieves) and stores CSRF token in response locals
 	next(); // Passes control to next middleware
 });
 

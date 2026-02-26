@@ -342,7 +342,7 @@ Back to [Table of Contents](#table-of-contents) above.
 
     vi. https://www.npmjs.com/package/express-session
 
-2.  [Authentication with Passport](https://classes.codethedream.org/course/node-v3/lion?week=15&lesson=Authentication%20with%20Passport) lesson/assignment page
+2.  [Authentication with Passport](https://classes.codethedream.org/course/node-v3/lion?week=15&lesson=Authentication%20with%20Passport) lesson/assignment page.
 
 3.  [MongoDB](https://www.mongodb.com/) database - no new content this week. But the database is used for this lesson.
 
