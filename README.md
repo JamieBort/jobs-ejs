@@ -1,8 +1,14 @@
-# Jobs EJS Application
+# Jobs Node Express EJS Application
+
+## Notes
+
+- This repo was built for lessons 12 - 14 of the CtD `Node Express V3` class.
+
+- CtD group session notes can be found in the [group-sessions-files/](./group-sessions-files/) directory.
 
 ## Overview
 
-The **Jobs EJS Application** is a simple web application that allows users to:
+This is a simple web application that allows users to:
 
 - Register and log in securely.
 - View and update a secret word stored in their session.

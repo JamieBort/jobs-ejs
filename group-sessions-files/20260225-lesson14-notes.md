@@ -14,8 +14,6 @@
 
 ## Summary Of Lesson
 
-<!-- TODO: Summary -->
-
 Back to [Table of Contents](#table-of-contents) above.
 
 This lesson,
@@ -34,8 +32,6 @@ Lastly enhances overall security by configuring Helmet, xss-clean, and express-r
 
 ## Points to highlight
 
-<!-- TODO: Points to highlight -->
-
 Back to [Table of Contents](#table-of-contents) above.
 
 1. In the previous two lessons I renamed the following values for clarity - the same value was used in multiple locations but for different purposes. I am sharing this again here because it remains relevant.
@@ -49,8 +45,6 @@ Back to [Table of Contents](#table-of-contents) above.
 <p align="center">************************</p>
 
 ## Cross Site Request Forgery (CSRF) Attack
-
-<!-- TODO: Summary -->
 
 Back to [Table of Contents](#table-of-contents) above.
 
@@ -137,8 +131,6 @@ Enabling CSRF protection in the project is an important part of this lesson — 
 
 ## Resources
 
-<!-- TODO: Resources -->
-
 Back to [Table of Contents](#table-of-contents) above.
 
 1.  host-csrf dependency https://www.npmjs.com/package/host-csrf
@@ -151,4 +143,4 @@ Back to [Table of Contents](#table-of-contents) above.
 
     No new content this week. But the database is used for this lesson.
 
-4.  _no video this lesson_
+4.  Video of the group session: https://youtu.be/668r-eFn6bE
